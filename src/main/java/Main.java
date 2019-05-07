@@ -1,20 +1,23 @@
-import Utils.PhoneReader;
+import util.PhoneReader;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
-        String path = "src/main/resources/text";
+        String inputPath = "src/main/resources/text";
+        String outputPath = "src/main/resources/numbers";
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                new FileInputStream(inputPath), StandardCharsets.UTF_8));
+             PrintWriter writer = new PrintWriter(outputPath, "UTF-8")) {
+
             while (reader.ready()) {
-                String currentLine = reader.readLine();
-                PhoneReader.readPhoneNumbers(currentLine);
+                PhoneReader
+                        .getPhoneNumbers(reader.readLine())
+                        .forEach(writer::println);
             }
         } catch (IOException e) {
             e.printStackTrace();
