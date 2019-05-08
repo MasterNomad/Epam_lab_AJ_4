@@ -21,7 +21,7 @@ public class PhoneReader {
 
     private static String editPhoneNumber(String phoneNumber) {
         StringBuilder result = new StringBuilder(phoneNumber.replaceAll("\\W", ""));
-        int code = Integer.parseInt(result.substring(0,1))+1;
+        int code = Integer.parseInt(result.substring(0, 1)) + 1;
         result.replace(0, 1, String.valueOf(code));
         return result.toString();
     }
